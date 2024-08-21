@@ -1,8 +1,12 @@
 import Button from "@/components/buttons/Button";
 import Card from "@/components/card/Card";
-import Image from "next/image";
+import ModalAddAnimal from "@/components/modals/ModalAddAnimal";
+import ModalAddCategory from "@/components/modals/ModalAddCategory";
+// import React, { useState } from "react";
 
 export default function Home() {
+  // const { modal, setModal } = React.useState(false);
+  // const handleModal = () => setModal(true);
   return (
     <main className="min-h-screen max-w-screen-2xl container mx-auto border border-purple-400 px-4 py-8 lg:p-16 xl:p-20">
       <div className="flex flex-col-reverse lg:flex-row justify-between gap-8 lg:gap-12">
@@ -18,7 +22,7 @@ export default function Home() {
         </div>
         <div className="flex gap-4 justify-between md:justify-center">
           <Button label="Add Animal" />
-          <Button label="Add Category" />
+          <Button onClick={"handleModal"} label="Add Category" />
         </div>
       </div>
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-10">
@@ -34,6 +38,8 @@ export default function Home() {
         <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
         <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
       </div>
+      {/* <ModalAddCategory /> */}
+      {/* <ModalAddAnimal /> */}
     </main>
   );
 }
