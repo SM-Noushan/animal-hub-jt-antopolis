@@ -1,4 +1,5 @@
-import Button from "@/components/shared/Button";
+import Button from "@/components/buttons/Button";
+import Card from "@/components/card/Card";
 import Image from "next/image";
 
 export default function Home() {
@@ -20,7 +21,19 @@ export default function Home() {
           <Button label="Add Category" />
         </div>
       </div>
-      <h1>Welcome to AnimalHub</h1>
+      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-10">
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+        <Card url="https://i.ibb.co/tpzpgdf/Elephant.png" />
+      </div>
     </main>
   );
 }
