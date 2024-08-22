@@ -24,4 +24,13 @@ const addCategory = async (data = {}) => {
   return resData;
 };
 
-export { getAllCategories, addCategory };
+// fetch all animals
+const getAllAnimals = async (query = "") => {
+  const res = await fetch(`${url}/animals?category=${query}`, {
+    next: { tags: ["animals"] },
+  });
+  const data = await res.json();
+  return data;
+};
+
+export { getAllCategories, addCategory, getAllAnimals };
