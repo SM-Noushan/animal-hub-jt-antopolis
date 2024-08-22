@@ -1,41 +1,67 @@
+import toast from "react-hot-toast";
+import { addCategory } from "@/api";
 import Button from "../buttons/Button";
+import { revalidateCategories } from "@/app/action";
 
-const Modal = ({ children, btnLabel }) => {
+const Modal = ({ children, btnLabel, isOpen, onClose }) => {
+  const handleForm = async (e) => {
+    e.preventDefault();
+    const category = e.target.category.value.toLowerCase();
+    try {
+      await addCategory({ category });
+      toast.success("Successfully added");
+      await revalidateCategories();
+      onClose(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.msg);
+    }
+  };
   return (
-    <div x-data="{ isOpen: true }" className="relative flex justify-center">
-      <div
-        // x-show="isOpen"
-        // x-transition:enter="transition duration-300 ease-out"
-        // x-transition:enter-start="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
-        // x-transition:enter-end="translate-y-0 opacity-100 sm:scale-100"
-        // x-transition:leave="transition duration-150 ease-in"
-        // x-transition:leave-start="translate-y-0 opacity-100 sm:scale-100"
-        // x-transition:leave-end="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
-        className="fixed inset-0 z-10 overflow-y-auto backdrop-brightness-50"
-        aria-labelledby="modal-title"
-        role="dialog"
-        aria-modal="true"
-      >
-        <div className="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-          <span
-            className="hidden sm:inline-block sm:align-middle sm:h-screen"
-            aria-hidden="true"
+    <>
+      {isOpen && (
+        <div
+          className={`fixed inset-0 z-10 overflow-y-auto backdrop-brightness-50 transition-opacity duration-500 ease-in-out ${
+            isOpen ? "opacity-100" : "opacity-0"
+          }`}
+          aria-labelledby="modal-title"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className={`flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0 transition-transform duration-500 ease-in-out ${
+              isOpen
+                ? "translate-y-0"
+                : "translate-y-4 sm:translate-y-0 sm:scale-95"
+            }`}
+            onClick={() => onClose(false)}
           >
-            &#8203;
-          </span>
+            <span
+              className="hidden sm:inline-block sm:align-middle sm:h-screen"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
 
-          <div className="relative inline-block px-6 py-9 overflow-hidden align-bottom transition-all transform bg-white text-black text-lg rounded-3xl sm:align-middle sm:max-w-sm sm:w-full">
-            <div className="text-start space-y-5">
-              {children}
-              <Button
-                label={btnLabel}
-                className="rounded-lg w-full bg-black text-white !mt-7"
-              />
-            </div>
+            <form
+              className="relative inline-block px-6 py-9 overflow-hidden align-bottom transition-all transform bg-white text-black text-lg rounded-3xl sm:align-middle sm:max-w-sm sm:w-full"
+              onSubmit={handleForm}
+              // prevents closing the modal when clicking inside it
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-start space-y-5">
+                {children}
+                <Button
+                  label={btnLabel}
+                  btnType="submit"
+                  className="rounded-lg w-full bg-black text-white !mt-7"
+                />
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

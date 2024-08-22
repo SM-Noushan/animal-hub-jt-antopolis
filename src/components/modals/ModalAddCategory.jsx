@@ -1,10 +1,9 @@
-import Button from "../buttons/Button";
-import CommonInput from "../form/CommonInput";
 import Modal from "./Modal";
+import CommonInput from "../form/CommonInput";
 
-const ModalAddCategory = () => {
+const ModalAddCategory = ({ isOpen, onClose }) => {
   return (
-    <Modal btnLabel="Save">
+    <Modal btnLabel="Save" isOpen={isOpen} onClose={onClose}>
       {/* form label */}
       <h1>Add Category</h1>
       {/* input: category name */}

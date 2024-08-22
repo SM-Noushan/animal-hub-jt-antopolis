@@ -1,11 +1,10 @@
 import React from "react";
-import Button from "../buttons/Button";
 import Modal from "./Modal";
 import CommonInput from "../form/CommonInput";
 
-const ModalAddAnimal = () => {
+const ModalAddAnimal = ({ isOpen, onClose, categories }) => {
   return (
-    <Modal btnLabel="Create Animal">
+    <Modal btnLabel="Create Animal" isOpen={isOpen} onClose={onClose}>
       {/* form label */}
       <h1>Add Animal</h1>
       {/* input: animal name */}
@@ -30,11 +29,13 @@ const ModalAddAnimal = () => {
         <select
           name="animalCategory"
           id="animalCategory"
-          className="cursor-pointer w-full rounded-lg p-4 bg-gray text-black appearance-none"
+          className="cursor-pointer w-full rounded-lg p-4 bg-gray text-black appearance-none capitalize"
         >
-          <option value="Animal 1">Animal 1</option>
-          <option value="Animal 2">Animal 2</option>
-          <option value="Animal 3">Animal 3</option>
+          {categories.map((item) => (
+            <option key={item._id} value={item.category}>
+              {item.category}
+            </option>
+          ))}
         </select>
         <span className="absolute top-2 right-4 inline-block bg-[#cccccc] rounded-lg px-2 py-1.5">
           category
