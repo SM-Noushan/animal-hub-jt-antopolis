@@ -35,7 +35,7 @@ const Modal = ({ children, btnLabel, isOpen, onClose, categories = [] }) => {
       const isExist = categories.filter((item) =>
         item.category.toLowerCase() === category ? true : false
       );
-      if (isExist) return toast.error("Category already exist.");
+      if (isExist.length) return toast.error("Category already exist.");
       try {
         await addCategory({ category });
         toast.success("Successfully added");
