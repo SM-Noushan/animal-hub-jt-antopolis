@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "./Modal";
 import CommonInput from "../form/CommonInput";
 
@@ -8,7 +7,7 @@ const ModalAddAnimal = ({ isOpen, onClose, categories }) => {
       {/* form label */}
       <h1>Add Animal</h1>
       {/* input: animal name */}
-      <CommonInput name="animal" placeholder="Animal Name" />
+      <CommonInput name="name" placeholder="Animal Name" />
       {/* input: animal image */}
       <div className="relative flex items-center mt-4">
         <span className="inline-block p-4 bg-gray rounded-lg w-full text-start text-black">
@@ -21,14 +20,20 @@ const ModalAddAnimal = ({ isOpen, onClose, categories }) => {
           >
             upload
           </label>
-          <input type="file" name="image" id="image" className="hidden" />
+          <input
+            type="file"
+            name="image"
+            id="image"
+            className="hidden"
+            accept="image/*"
+          />
         </span>
       </div>
       {/* input: animal category */}
       <div className="relative">
         <select
-          name="animalCategory"
-          id="animalCategory"
+          name="category"
+          id="category"
           className="cursor-pointer w-full rounded-lg p-4 bg-gray text-black appearance-none capitalize"
         >
           {categories.map((item) => (

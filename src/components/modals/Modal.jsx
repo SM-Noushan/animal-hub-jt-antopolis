@@ -1,20 +1,45 @@
 import toast from "react-hot-toast";
-import { addCategory } from "@/api";
 import Button from "../buttons/Button";
-import { revalidateCategories } from "@/app/action";
+import { useRouter } from "next/navigation";
+import { addAnimal, addCategory, uploadImage } from "@/api";
+import { revalidateAnimals, revalidateCategories } from "@/app/action";
 
 const Modal = ({ children, btnLabel, isOpen, onClose }) => {
+  const router = useRouter();
   const handleForm = async (e) => {
     e.preventDefault();
-    const category = e.target.category.value.toLowerCase();
-    try {
-      await addCategory({ category });
-      toast.success("Successfully added");
-      await revalidateCategories();
-      onClose(false);
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.msg);
+    const form = e.target;
+    const name = form?.name?.value?.toLowerCase();
+    // new animals
+    if (name) {
+      const category = form?.category?.value;
+      const image = form?.image?.files[0];
+      if (!image) return toast.error("Upload Image");
+      const formData = new FormData();
+      formData.append("image", image);
+      try {
+        // upload image and get url
+        const { data } = await uploadImage(formData);
+        const imgUrl = data.display_url;
+        await addAnimal({ name, category, image: imgUrl });
+        await revalidateAnimals(category);
+        router.refresh();
+        toast.success("Successfully added");
+        onClose(false);
+      } catch (error) {
+        toast.error(error?.msg || error);
+      }
+    } else {
+      // new category
+      const category = form?.category?.value?.toLowerCase();
+      try {
+        await addCategory({ category });
+        toast.success("Successfully added");
+        await revalidateCategories();
+        onClose(false);
+      } catch (error) {
+        toast.error(error?.msg || error);
+      }
     }
   };
   return (

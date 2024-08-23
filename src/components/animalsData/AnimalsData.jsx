@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 import Card from "../card/Card";
+import toast from "react-hot-toast";
 import { getAllAnimals } from "@/api";
 import { useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
 
 const SkeletonCard = () => (
-  <div class="w-full space-y-3.5 overflow-x-clip mx-auto">
-    <div class="bg-slate-900 animate-pulse border-white/10 rounded-lg h-48" />
-    <div class="bg-slate-800 animate-pulse rounded-lg h-4" />
+  <div className="w-full space-y-3.5 overflow-x-clip mx-auto">
+    <div className="bg-slate-900 animate-pulse border-white/10 rounded-lg h-48" />
+    <div className="bg-slate-800 animate-pulse rounded-lg h-4" />
   </div>
 );
 

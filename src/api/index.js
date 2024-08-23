@@ -1,5 +1,5 @@
 // base url
-const url = process.env.NEXT_PUBLIC_Base_API_URL;
+const url = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 // fetch all categories
 const getAllCategories = async () => {
@@ -19,7 +19,6 @@ const addCategory = async (data = {}) => {
     },
     body: JSON.stringify(data),
   });
-
   const resData = await res.json();
   return resData;
 };
@@ -33,4 +32,30 @@ const getAllAnimals = async (query = "") => {
   return data;
 };
 
-export { getAllCategories, addCategory, getAllAnimals };
+// add new animal
+const addAnimal = async (data = {}) => {
+  const res = await fetch(`${url}/animals/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const resData = await res.json();
+  return resData;
+};
+
+// upload image to imgbb
+const uploadImage = async (formData) => {
+  const res = await fetch(
+    `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_VITE_IMGBB_API_KEY}`,
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
+  const data = await res.json();
+  return data;
+};
+
+export { getAllCategories, addCategory, getAllAnimals, addAnimal, uploadImage };
