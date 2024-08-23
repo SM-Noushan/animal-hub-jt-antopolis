@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { addAnimal, addCategory, uploadImage } from "@/api";
 import { revalidateAnimals, revalidateCategories } from "@/app/action";
 
-const Modal = ({ children, btnLabel, isOpen, onClose }) => {
+const Modal = ({ children, btnLabel, isOpen, onClose, categories = [] }) => {
   const router = useRouter();
   const handleForm = async (e) => {
     e.preventDefault();
@@ -32,6 +32,10 @@ const Modal = ({ children, btnLabel, isOpen, onClose }) => {
     } else {
       // new category
       const category = form?.category?.value?.toLowerCase();
+      const isExist = categories.filter((item) =>
+        item.category.toLowerCase() === category ? true : false
+      );
+      if (isExist) return toast.error("Category already exist.");
       try {
         await addCategory({ category });
         toast.success("Successfully added");

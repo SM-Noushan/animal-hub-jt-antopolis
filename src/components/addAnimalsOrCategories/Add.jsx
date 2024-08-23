@@ -21,7 +21,11 @@ const Add = ({ categories }) => {
         onClose={setAnimalModal}
         categories={categories}
       />
-      <ModalAddCategory isOpen={categoryModal} onClose={setCategoryModal} />
+      <ModalAddCategory
+        isOpen={categoryModal}
+        onClose={setCategoryModal}
+        categories={categories}
+      />
     </>
   );
 };
